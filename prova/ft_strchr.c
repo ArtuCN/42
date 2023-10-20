@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//#include <string.h>
 //#include <stdio.h>
 
 char	*ft_strchr(const char *s, int c)
@@ -17,10 +18,12 @@ char	*ft_strchr(const char *s, int c)
 	char		*result;
 	int			i;
 
-	result = 0;
 	i = 0;
+	if (c == 0)
+		return ("\0");
 	while (s[i])
 	{
+		result = 0;
 		if (s[i] == (char)c)
 		{
 			result = (char *)&s[i];
@@ -30,18 +33,14 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (result);
 }
-/*
-int main()
-{
-    const char *str = "Hello, World!";
-    char target = 'z';
-    char *result = ft_strchr(str, target);
 
-    if (result != 0) {
-        printf("'%c' found at position: %ld\n", target, result - str);
-    } else {
-        printf("'%c' not found in the string.\n", target);
-    }
+/*int main()
+{
+    const char *str = "adsasd";
+    const char *str2 = "adsasd";
+	
+    printf("funzione mia %s \n", ft_strchr(str, 'z'));
+    printf("funzione vera %s \n", strchr(str2, 'z'));
 
     return 0;
 }*/

@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aconti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 19:22:54 by aconti            #+#    #+#             */
-/*   Updated: 2023/10/11 19:23:25 by aconti           ###   ########.fr       */
+/*   Created: 2023/10/18 21:13:34 by aconti            #+#    #+#             */
+/*   Updated: 2023/10/18 21:13:35 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_lower(int c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	if (c >= 'A' && c <= 'Z')
-		c += 32;
-	return (c);
+	unsigned int	i;
+	char			*r;
+
+	if (s == 0)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		r[i] = f(i, s[i]);
+		i++;
+	}
+	r[l] = 0;
 }

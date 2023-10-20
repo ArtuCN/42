@@ -17,6 +17,8 @@ char	*ft_strrchr(const char *s, int c)
 	char		*result;
 	int			i;
 
+	if (c == 0)
+		return ("\0");
 	result = 0;
 	i = 0;
 	while (s[i])

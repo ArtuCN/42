@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aconti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 19:22:54 by aconti            #+#    #+#             */
-/*   Updated: 2023/10/11 19:23:25 by aconti           ###   ########.fr       */
+/*   Created: 2023/10/13 19:04:48 by aconti            #+#    #+#             */
+/*   Updated: 2023/10/13 19:52:36 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_lower(int c)
+void	*ft_calloc(size_t n, size_t size)
 {
-	if (c >= 'A' && c <= 'Z')
-		c += 32;
-	return (c);
+	void	*ptr;
+	size_t	i;
+
+	ptr = (void *)malloc(n * size);
+	if (!ptr)
+		return (0);
+	i = 0;
+	while (i < size * n)
+	{
+		((char *)ptr)[i] = 0;
+		i++;
+	}
+	return (ptr);
 }
