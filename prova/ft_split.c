@@ -1,130 +1,131 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aconti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 10:19:39 by aconti            #+#    #+#             */
-/*   Updated: 2023/10/17 10:19:42 by aconti           ###   ########.fr       */
+/*   Created: 2023/10/20 17:20:23 by aconti            #+#    #+#             */
+/*   Updated: 2023/10/20 17:21:29 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
+//#include <stdio.h>
 
-void	free_split(char **r)
+int	count_words(const char *s, char c)
 {
-	int	i;
+	int	count;
+	int	word;
 
-	if (r)
+	count = 0;
+	word = 0;
+	while (*s)
 	{
-		i = 0;
-		while (r[i] == NULL)
+		if (*s == c)
 		{
-			free(r[i]);
-			i++;
+			word = 0;
 		}
-		free (r);
-	}
-}
-
-int	controllo(char **r)
-{
-	if (r)
-		return (1);
-	free_split(r);
-	return (0);
-}
-
-int	k(char const *s, char c)
-{
-	int	z;
-	int	t;
-	int	x;
-
-	z = 0;
-	t = 0;
-	x = 0;
-	while (s[z])
-	{
-		while (s[z])
-			z++;
-		if (!s[z])
-			break ;
-		t = 0;
-		while (s[z + t] != c && s[z + t])
+		else
 		{
-			t++;
+			if (word == 0)
+			{
+				count++;
+				word = 1;
+			}
 		}
-		x++;
-		z += t;
+		s++;
 	}
-	return (x);
+	return (count);
 }
 
-char	**a(char const *s, char c, int x, int z)
+char	*copy_word(const char *s, char c)
 {
-	char	**r;
-	int		t;
+	int		l;
+	char	*word;
 	int		i;
 
-	r = (char **)malloc((x + 1) * sizeof(char *));
-	if (controllo(r) == 0)
+	l = 0;
+	i = 0;
+	while (s[l] && s[l] != c)
+		l++;
+	word = (char *)malloc(l + 1);
+	if (!word)
 		return (NULL);
-	while (s[z])
+	while (i < l)
 	{
-		while (s[z] == c)
-			z++;
-		t = 0;
-		while (s[z + t] != c && s[z + t])
-			t++;
-		r[x] = (char *)malloc(t + 1);
-		i = 0;
-		while (i < t)
-		{
-			r[x][i] = s[z + i];
-			i++;
-		}
-		r[x][i] = '\0';
-		z += t;
-		x++;
+		word[i] = s[i];
+		i++;
 	}
-	r[x] = NULL;
-	return (r);
+	word[l] = '\0';
+	return (word);
+}
+
+char	**scorp(char **result, char const *s, char c, int i)
+{
+	int	j;
+
+	j = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			result[i] = copy_word(s, c);
+			if (!result[i])
+			{
+				j = 0;
+				while (j++ < i)
+					free (result[j]);
+				free (result);
+				return (NULL);
+			}
+			i++;
+			while (*s && *s != c)
+				s++;
+		}
+		else
+			s++;
+	}
+	result[i] = 0;
+	return (result);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int			x;
-	char		**r;
-	int			z;
+	int		n;
+	char	**result;
+	int		i;
 
-	z = 0;
-	if (s == NULL || *s == '\0')
+	if (!s)
 		return (NULL);
-	x = k(s, c);
-	r = (char **)malloc((x + 1) * sizeof(char *));
-	if (r == NULL)
-	{
-		free_split(r);
+	n = count_words(s, c);
+	result = (char **)malloc(sizeof(char *) * (n + 1));
+	if (!result)
 		return (NULL);
-	}
-	r = a(s, c, x, z);
-	return (r);
+	i = 0;
+	result = scorp(result, s, c, i);
+	return (result);
 }
 
 /*int main() {
-    char const *s = "ciao a tutti ";
-    char d = ' ';
+    char const *input_string = "  il comunismo  .  fa   cagare  ";
+    char separator = ' ';
 
-    char **result = ft_split(s, d);
+    char **result = ft_split(input_string, separator);
 
-    int i = 0;
-    while (result[i]) {
-        printf("Substring %d: %s\n", i, result[i]);
-        i++;
+    if (result) {
+        for (int i = 0; result[i] != NULL; i++) {
+            printf("%s\n", result[i]);
+        }
+
+        // Liberare la memoria allocata
+        for (int i = 0; result[i] != NULL; i++) {
+            free(result[i]);
+        }
+        free(result);
+    } else {
+        printf("Errore durante la divisione della stringa.\n");
     }
-	
+
     return 0;
 }*/
