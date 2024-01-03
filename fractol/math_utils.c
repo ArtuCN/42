@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:06:50 by aconti            #+#    #+#             */
-/*   Updated: 2023/12/29 17:37:27 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/03 21:16:31 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ double	squareRoot(double n)
     return (x);
 }
 
+double module(t_complex c)
+{
+    return squareRoot(c.real * c.real + c.immaginary * c.immaginary);
+}
+
 int isMandelbrot(t_complex n)
 {
 	t_complex t;
@@ -58,14 +63,13 @@ int isMandelbrot(t_complex n)
 	t.real = 0;
 	n.iteration = 0;
 	
-	t = sum_complex(t, n);
 	while(n.iteration < MAXITERATION)
 	{
 		t = sum_complex(multiply(n, n), t);
 		n = t;
-		if (squareRoot(t.immaginary * t.immaginary + t.real *t.real) > 2.0)
+		if (module(t) > 2.0)
 			return (n.iteration);
 		n.iteration ++;
 	}
-	return(n.iteration);
+	return(-1);
 }

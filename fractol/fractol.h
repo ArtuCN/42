@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2023/12/29 17:23:54 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/03 18:46:41 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,25 @@
 #define OLIVE     128, 128, 0
 
 
-typedef struct
+typedef struct s_complex
 {
 	double real;
 	double immaginary;
 	int		iteration;
 }t_complex;
 
+typedef struct s_image {
+	void *img_ptr;
+	char *addr;
+	int bits_per_pixel;
+	int line_length;
+	int endian;
+} t_image;
+
 typedef struct s_window{
 	void	*mlx_connection;
 	void	*win;
+	t_image image;
 } t_window;
 
 int		ft_strncmp(const char *str1, const char *str2, int n);
