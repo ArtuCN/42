@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:59:23 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/03 20:52:49 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/04 11:29:25 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int main(int argc, char **argv)
 		ft_putstr("ERROR\nPlease write 'mandelbrot' OR 'julia'!\n");
 		return (0);
 	}
-	argc = fractal_render(argc);
+	fractal_render(argv);
 }
