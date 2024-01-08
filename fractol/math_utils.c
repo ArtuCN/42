@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:06:50 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 13:13:13 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:34:18 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,17 @@ double map(double unscaled_num, double new_min, double new_max, double old_max)
 	return (new_max - new_min) * (unscaled_num) / (old_max ) + new_min;
 }
 
-t_complex sum_complex(t_complex a, t_complex b)
+t_complex calculate_iteration(t_complex t, t_complex n)
 {
-	t_complex result;
+    t_complex result;
 
-	result.real = a.real + b.real;
-	result.immaginary = a.immaginary + b.immaginary;
-	return (result);
+    result.real = t.real + (t.real * t.real - t.immaginary * t.immaginary) - n.real;
+    result.immaginary = t.immaginary + (2 * t.real * t.immaginary - n.immaginary);
+    
+    return (result);
 }
 
-t_complex	squareComplex(t_complex a)
-{
-	t_complex result;
 
-	result.real = a.real * a.real - a.immaginary * a.immaginary;
-	result.immaginary = 2 * a.real * a.immaginary;
-	return (result);
-}
 
 double module(t_complex c)
 {

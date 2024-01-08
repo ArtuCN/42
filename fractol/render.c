@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:10:43 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 16:36:16 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:33:49 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void my_pixel_put(int x, int y, t_image *image, int color)
 
 	offset = y * image->line_length
 		+ x * (image->bits_per_pixel / 8);
-	image->addr[offset] = color;
+	image->addr[offset] = color; //blu
+	//image->addr[offset + 1] = color; //verde
+	image->addr[offset + 2] = color; //rosso
 }
 
 int isMandelbrot(t_complex n)
@@ -34,7 +36,7 @@ int isMandelbrot(t_complex n)
 	iteration = 0;
 	while(iteration < MAXITERATION)
 	{
-		t = sum_complex(t, squareComplex(n));
+		t = calculate_iteration(t, n);
 		if (module(t) > 4.0)
 			return (iteration);
 		iteration ++;
@@ -55,8 +57,8 @@ void handle_pix(int x, int y, t_fractal *fractal)
 	pixel_position = (y * fractal->image.line_length) + (x * (fractal->image.bits_per_pixel / 8));
 	if (iteration != MAXITERATION)
 		{
-			color = (iteration * 255) / MAXITERATION;
-			my_pixel_put(x, y, &fractal->image, iteration);
+			color = (iteration * 10000) / MAXITERATION;
+			my_pixel_put(x, y, &fractal->image, color);
 		}
 	else
 		my_pixel_put(x, y, &fractal->image, 0x000000);

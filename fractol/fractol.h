@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 16:05:47 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:34:27 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	fractal_render(t_fractal *fractal);
 int		close_window(void *param);
 void	ft_putstr(char *s);
 double map(double unscaled_num, double new_min, double new_max, double old_max);
-t_complex	sum_complex(t_complex a, t_complex b);
-t_complex	squareComplex(t_complex a);
 int isMandelbrot(t_complex n);
 void	fractal_init(t_fractal *fractal);
 void    events(t_fractal *fractal);
@@ -85,6 +83,6 @@ void data_init(t_fractal *fractal);
 void handle_pix(int x, int y, t_fractal *fractal);
 double module(t_complex c);
 void malloc_error(void);
-
+t_complex calculate_iteration(t_complex t, t_complex n);
 
 #endif
