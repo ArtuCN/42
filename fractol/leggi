@@ -1,0 +1,5 @@
+ora crea la finestra per bene deve esserci un problema nella formula matematica ma intanto e un buon punto,
+per compilare:
+gcc main.c events.c math_utils.c render.c string.utils.c init.c -Lminilibx-linux -lmlx -lXext -lX11 -lm
+
+ho cambiato un bel po' la logica come vedi ma ora funziona meglio per ora 0  memory leaks

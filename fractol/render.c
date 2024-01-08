@@ -6,52 +6,74 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:10:43 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/04 12:28:37 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:36:16 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 //4:800 = x : 500
+// in map no old min for normie
 
-void putpix(double x, double y, t_window window)
+void my_pixel_put(int x, int y, t_image *image, int color)
+{
+	int	offset;
+
+	offset = y * image->line_length
+		+ x * (image->bits_per_pixel / 8);
+	image->addr[offset] = color;
+}
+
+int isMandelbrot(t_complex n)
+{
+	t_complex t;
+	int iteration;
+	
+	t.immaginary = 0;
+	t.real = 0;
+	iteration = 0;
+	while(iteration < MAXITERATION)
+	{
+		t = sum_complex(t, squareComplex(n));
+		if (module(t) > 4.0)
+			return (iteration);
+		iteration ++;
+	}
+	return(iteration);
+}
+
+void handle_pix(int x, int y, t_fractal *fractal)
 {
 	t_complex	new;
 	int iteration;
-	static int color;
+	int color;
 	int pixel_position;
 	
-	new.real = map(x, -2, +2, 0, WIDTH);
-	new.immaginary = map(y, 1.25, -1.25, 0, HEIGHT);
+	new.real = map(x, -2, +2, WIDTH);
+	new.immaginary = map(y, 1.25, -1.25, HEIGHT);
 	iteration = isMandelbrot(new);
-	pixel_position = (y * window.image.line_length) + (x * (window.image.bits_per_pixel / 8));
-	if (iteration != -1)
+	pixel_position = (y * fractal->image.line_length) + (x * (fractal->image.bits_per_pixel / 8));
+	if (iteration != MAXITERATION)
 		{
 			color = (iteration * 255) / MAXITERATION;
-			mlx_pixel_put(window.mlx_connection, window.win, x, y, color);
+			my_pixel_put(x, y, &fractal->image, iteration);
 		}
 	else
-		mlx_pixel_put(window.mlx_connection, window.win, x, y, 0x000000); // Colore Nero
-
+		my_pixel_put(x, y, &fractal->image, 0x000000);
 }
 
-void	fractal_render(char **argv)
+void	fractal_render(t_fractal *fractal)
 {
-	t_window	window;
-	double x;
-	double	y;
+	int x;
+	int	y;
 	
 	y = -1;
-	window.mlx_connection = mlx_init();
-	window.win = mlx_new_window(window.mlx_connection, WIDTH, HEIGHT, "My first window");
-	window.image.img_ptr = mlx_new_image(window.mlx_connection, WIDTH, HEIGHT);
-	window.image.addr = mlx_get_data_addr(window.image.img_ptr, &window.image.bits_per_pixel, &window.image.line_length, &window.image.endian);
-	mlx_hook(window.win, 17, 1L << 2, close_window, &window);
 	while (++y < HEIGHT)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			putpix (x, y, window); 
+			handle_pix (x, y, fractal); 
 	}
-	mlx_loop(window.mlx_connection);
+	mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->image.img_ptr, 0, 0);
+	mlx_loop(fractal->mlx_connection);
 }

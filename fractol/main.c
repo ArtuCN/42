@@ -6,23 +6,35 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:59:23 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/04 11:29:25 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 15:37:11 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+/*
+ac 2 = mandelbrot
+ac 4 = julia (a.out, julia, n, n)
+
+name = mandelbrot || julia
+
+*/
+
 #include "fractol.h"
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-	if (argc != 2 && argc != 4)
-	{
-		ft_putstr("ERROR\nPlease write 'mandelbrot' OR 'julia'!\n");
-		return (0);
-	}
-	if (argc == 2 && (ft_strncmp(argv[1], "mandelbrot", 10) != 0 && ft_strncmp(argv[1], "julia", 5) != 0))
-	{
-		ft_putstr("ERROR\nPlease write 'mandelbrot' OR 'julia'!\n");
-		return (0);
-	}
-	fractal_render(argv);
+	t_fractal	fractal;
+	if (2 == ac && !ft_strncmp(av[1], "mandelbrot", 10)
+		|| 4 == ac && !ft_strncmp(av[1], "julia", 5))
+		{
+			fractal.name = av[1];
+			/*
+			if (!ft_strncmp(av[1], "julia", 5))
+			{
+				something something;
+			}
+			julia imp. TODO*/
+			fractal_init(&fractal);
+			fractal_render(&fractal);
+		}
 }

@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/04 12:28:30 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:05:47 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 #include "minilibx-linux/mlx.h"
 
 #define WIDTH 800
@@ -44,10 +45,10 @@ typedef struct s_complex
 {
 	double real;
 	double immaginary;
-	int		iteration;
 }t_complex;
 
-typedef struct s_image {
+typedef struct s_image
+{
 	void *img_ptr;
 	char *addr;
 	int bits_per_pixel;
@@ -55,23 +56,35 @@ typedef struct s_image {
 	int endian;
 } t_image;
 
-typedef struct s_window{
+typedef struct s_fractal
+{
+	char	*name;
 	void	*mlx_connection;
-	void	*win;
+	void	*mlx_window;
 	t_image image;
-} t_window;
+	double	escape_value;
+	int		iteration_def;
+	double	shift_y;
+	double	shift_x;
+	double	zoom;
+	double	julia_x;
+	double	julia_y;
+} t_fractal;
 
 int		ft_strncmp(const char *str1, const char *str2, int n);
-void	fractal_render(char **argv);
+void	fractal_render(t_fractal *fractal);
 int		close_window(void *param);
 void	ft_putstr(char *s);
-double map(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+double map(double unscaled_num, double new_min, double new_max, double old_max);
 t_complex	sum_complex(t_complex a, t_complex b);
-t_complex	multiply(t_complex a, t_complex b);
+t_complex	squareComplex(t_complex a);
 int isMandelbrot(t_complex n);
-void putpix(double x, double y, t_window window);
-
-
+void	fractal_init(t_fractal *fractal);
+void    events(t_fractal *fractal);
+void data_init(t_fractal *fractal);
+void handle_pix(int x, int y, t_fractal *fractal);
+double module(t_complex c);
+void malloc_error(void);
 
 
 #endif
