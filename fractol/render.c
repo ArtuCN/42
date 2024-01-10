@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:10:43 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 17:33:49 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:49:04 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,6 @@ void my_pixel_put(int x, int y, t_image *image, int color)
 	image->addr[offset + 2] = color; //rosso
 }
 
-int isMandelbrot(t_complex n)
-{
-	t_complex t;
-	int iteration;
-	
-	t.immaginary = 0;
-	t.real = 0;
-	iteration = 0;
-	while(iteration < MAXITERATION)
-	{
-		t = calculate_iteration(t, n);
-		if (module(t) > 4.0)
-			return (iteration);
-		iteration ++;
-	}
-	return(iteration);
-}
-
 void handle_pix(int x, int y, t_fractal *fractal)
 {
 	t_complex	new;
@@ -61,7 +43,10 @@ void handle_pix(int x, int y, t_fractal *fractal)
 			my_pixel_put(x, y, &fractal->image, color);
 		}
 	else
+	{
+		color = (iteration * 10000) / MAXITERATION;
 		my_pixel_put(x, y, &fractal->image, 0x000000);
+	}		
 }
 
 void	fractal_render(t_fractal *fractal)

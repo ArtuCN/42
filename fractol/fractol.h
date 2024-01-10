@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 17:34:27 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:36:13 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void handle_pix(int x, int y, t_fractal *fractal);
 double module(t_complex c);
 void malloc_error(void);
 t_complex calculate_iteration(t_complex t, t_complex n);
+//int key_hook(int keycode, t_fractal *fractal);
 
 #endif

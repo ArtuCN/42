@@ -1,4 +1,4 @@
-ora crea la finestra per bene deve esserci un problema nella formula matematica ma intanto e un buon punto,
+CREA MANDELBROT MA MANCA TUTTO IL RESTO, sigsev se tocco tasti no idea del perche
 per compilare:
 gcc main.c events.c math_utils.c render.c string.utils.c init.c -Lminilibx-linux -lmlx -lXext -lX11 -lm
 

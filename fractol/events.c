@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:47:34 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/07 16:42:13 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:37:26 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int close_window(void *param)
     exit(0);
 }
 
-/*int mouse_scroll()
+/*int key_()
 {
     
 }*/
