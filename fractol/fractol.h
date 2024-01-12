@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/10 17:36:13 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/12 16:13:52 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <X11/X.h>
 #include <math.h>
 #include "minilibx-linux/mlx.h"
 
-#define WIDTH 800
+#define WIDTH 1000
 #define HEIGHT 500
 #define MAXITERATION 1000
+#define EXIT_SUCCESS 0
+
 
 #define BLACK       0x000000  // RGB(0, 0, 0)
 #define WHITE       0xFFFFFF  // RGB(255, 255, 255)
@@ -39,7 +42,6 @@
 #define HOT_PINK        0xFF66B2  // As the name suggests!
 #define ELECTRIC_BLUE   0x0066FF  // A radiant blue
 #define LAVA_RED        0xFF3300  // A bright, molten red
-
 
 typedef struct s_complex
 {
@@ -73,17 +75,20 @@ typedef struct s_fractal
 
 int		ft_strncmp(const char *str1, const char *str2, int n);
 void	fractal_render(t_fractal *fractal);
-int		close_window(void *param);
 void	ft_putstr(char *s);
 double map(double unscaled_num, double new_min, double new_max, double old_max);
 int isMandelbrot(t_complex n);
 void	fractal_init(t_fractal *fractal);
-void    events(t_fractal *fractal);
 void data_init(t_fractal *fractal);
 void handle_pix(int x, int y, t_fractal *fractal);
 double module(t_complex c);
 void malloc_error(void);
 t_complex calculate_iteration(t_complex t, t_complex n);
-//int key_hook(int keycode, t_fractal *fractal);
+
+//utils
+int key_handler(int keysym, t_fractal *fractal);
+int close_window(t_fractal *fractal);
+void    events(t_fractal *fractal);
+int	mouse_handler(int button, int x, int y, t_fractal *fractal);
 
 #endif

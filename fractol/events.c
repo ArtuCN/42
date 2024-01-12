@@ -6,29 +6,53 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:47:34 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/10 17:37:26 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/12 17:18:23 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int close_window(void *param)
-{   
-    t_fractal *fractal = (t_fractal *)param;
-    mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-    mlx_destroy_display(fractal->mlx_connection);
-    free(fractal->mlx_connection);
-	ft_putstr("Hai chiuso la finestra!\n");
-    exit(0);
+int close_window(t_fractal *fractal)
+{    
+    mlx_destroy_image(fractal->mlx_connection,
+					fractal->image.img_ptr);
+	mlx_destroy_window(fractal->mlx_connection,
+						fractal->mlx_window);
+	mlx_destroy_display(fractal-> mlx_connection);
+	free(fractal-> mlx_connection);
+    ft_putstr("\nFinestra chiusa! :)");
+	exit(EXIT_SUCCESS);
 }
 
-/*int key_()
+int	mouse_handler(int button, int x, int y, t_fractal *fractal)
 {
-    
-}*/
+	if (button == Button4)
+		fractal->zoom *= 0.95;
+	else if (button == Button5)
+		fractal->zoom *= 1.05;
+	fractal_render(fractal);
+	return (0);
+}
+
+int	key_handler(int keysym, t_fractal *fractal)
+{
+	if (keysym == 65307)
+		close_window(fractal);
+	if (keysym == 65361)
+		fractal->shift_x -= (0.5 * fractal->zoom);	
+	else if (keysym == 65363)
+		fractal->shift_x += (0.5 * fractal->zoom);	
+	else if (keysym ==  65362)
+		fractal->shift_y += (0.5 * fractal->zoom);	
+	else if (keysym == 65364)
+		fractal->shift_y -= (0.5 * fractal->zoom);	
+	fractal_render(fractal);
+	return (0);
+}
 
 void    events(t_fractal *fractal)
 {
-    mlx_hook(fractal->mlx_window, 2, 53, close_window, fractal);
+    mlx_key_hook(fractal->mlx_window, key_handler, fractal);
     mlx_hook(fractal->mlx_window, 17, 1L << 2, close_window, fractal);
+    mlx_mouse_hook(fractal->mlx_window, mouse_handler, fractal);
 }

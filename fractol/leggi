@@ -1,5 +1,0 @@
-CREA MANDELBROT MA MANCA TUTTO IL RESTO, sigsev se tocco tasti no idea del perche
-per compilare:
-gcc main.c events.c math_utils.c render.c string.utils.c init.c -Lminilibx-linux -lmlx -lXext -lX11 -lm
-
-ho cambiato un bel po' la logica come vedi ma ora funziona meglio per ora 0  memory leaks

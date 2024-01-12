@@ -1,0 +1,4 @@
+CREA MANDELBROT MA MANCA TUTTO IL RESTO, puoi chiudere finestra cliccando su x col mouse e con esc, non funziona spostarsi con le frecce non so perche.
+per compilare:
+gcc main.c events.c math_utils.c render.c string.utils.c init.c -Lminilibx-linux -lmlx -lXext -lX11 -lm
+
