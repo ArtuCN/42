@@ -36,7 +36,7 @@ void data_init(t_fractal *fractal)
 	fractal->escape_value = 4.0;
 	fractal->iteration_def = 42;
 	fractal->shift_x = 0.0;
-	fractal->shift_y = 2.0;
+	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
 }
 
