@@ -1,4 +1,25 @@
-CREA MANDELBROT MA MANCA TUTTO IL RESTO, puoi chiudere finestra cliccando su x col mouse e con esc, non funziona spostarsi con le frecce non so perche.
-per compilare:
-gcc main.c events.c math_utils.c render.c string.utils.c init.c -Lminilibx-linux -lmlx -lXext -lX11 -lm
+Come usare:
+
+J = Julia
+F = Mandelbrot
+
+M  -  N  -  K  -  L
+-y   +y    +x    -x
+
+Problemi:
+troppo lento sopratutto quando si zoomma
+se si cliccano ripetutamente velocemente piu pulsanti va in sigsev
+
+Manca:
+
+-Mandatory:
+
+Zommare tanto senza mandare in sigsev
+Gestione migliore dei colori
+Norminette
+
+-Bonus:
+
+Zoom dove punta il mouse
+Un nuovo frattale (Se lo iniziamo insieme meglio)
 

@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:10:43 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/12 17:14:45 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/13 12:33:34 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void handle_pix(int x, int y, t_fractal *fractal)
 	
 	new.real = (map(x, -3, +3, WIDTH) * fractal->zoom + fractal->shift_x);
 	new.immaginary = (map(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y);
-	iteration = isMandelbrot(new);
+	if (!ft_strncmp(fractal->name, "julia", 5))
+		iteration = isJulia(new, fractal);
+	else
+		iteration = isMandelbrot(new);
 	pixel_position = (y * fractal->image.line_length) + (x * (fractal->image.bits_per_pixel / 8));
 	if (iteration != MAXITERATION)
 		{
@@ -43,10 +46,8 @@ void handle_pix(int x, int y, t_fractal *fractal)
 			my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, color);
 		}
 	else
-	{
-		color = (iteration * 10000) / MAXITERATION;
 		my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, 0x000000);
-	}		
+
 }
 
 void	fractal_render(t_fractal *fractal)

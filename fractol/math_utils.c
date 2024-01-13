@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 14:06:50 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/10 17:48:37 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/13 12:21:39 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,25 @@ double module(t_complex c)
 {
     double realPart = c.real;
     double imagPart = c.immaginary;
-    return sqrt(realPart * realPart + imagPart * imagPart);
+    return (realPart * realPart + imagPart * imagPart);
+}
+
+int isJulia(t_complex n, t_fractal *fractal)
+{
+	int iteration;
+	t_complex constant;
+
+	constant.immaginary = fractal->julia_y;
+	constant.real = fractal->julia_x;
+	iteration = 0;
+	while (iteration < MAXITERATION)
+	{
+		n = calculate_iteration(n, constant);
+		if (module(n) > 4.0)
+			return(iteration);
+		iteration ++;
+	}
+	return (iteration);
 }
 
 int isMandelbrot(t_complex n)
@@ -48,7 +66,7 @@ int isMandelbrot(t_complex n)
 	while(iteration < MAXITERATION)
 	{
 		t = calculate_iteration(t, n);
-		if (module(t) > 4.0)
+		if (module(t) > 32.0)
 			return (iteration);
 		iteration ++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:41:53 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/12 16:13:52 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/13 13:34:10 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@
 #define ELECTRIC_BLUE   0x0066FF  // A radiant blue
 #define LAVA_RED        0xFF3300  // A bright, molten red
 
+
+//define key
+#define M 109
+#define K 107
+#define L 108
+#define N 110
+#define J 106
+#define F 102
+#define LEFT 65361
+#define RIGHT 65363
+#define UP 65362
+#define DOWN 65364
+//define message
+#define INPUT_ERROR "Please type 'mandelbrot' or 'Julia x y'"
+
 typedef struct s_complex
 {
 	double real;
@@ -64,8 +79,6 @@ typedef struct s_fractal
 	void	*mlx_connection;
 	void	*mlx_window;
 	t_image image;
-	double	escape_value;
-	int		iteration_def;
 	double	shift_y;
 	double	shift_x;
 	double	zoom;
@@ -73,22 +86,30 @@ typedef struct s_fractal
 	double	julia_y;
 } t_fractal;
 
-int		ft_strncmp(const char *str1, const char *str2, int n);
 void	fractal_render(t_fractal *fractal);
-void	ft_putstr(char *s);
-double map(double unscaled_num, double new_min, double new_max, double old_max);
-int isMandelbrot(t_complex n);
+
 void	fractal_init(t_fractal *fractal);
 void data_init(t_fractal *fractal);
 void handle_pix(int x, int y, t_fractal *fractal);
-double module(t_complex c);
-void malloc_error(void);
-t_complex calculate_iteration(t_complex t, t_complex n);
 
-//utils
+void malloc_error(void);
+
+//events
 int key_handler(int keysym, t_fractal *fractal);
 int close_window(t_fractal *fractal);
 void    events(t_fractal *fractal);
 int	mouse_handler(int button, int x, int y, t_fractal *fractal);
+
+//str
+double atod(char *str);
+int		ft_strncmp(const char *str1, const char *str2, int n);
+void	ft_putstr(char *s);
+
+//math
+int isJulia(t_complex n, t_fractal *fractal);
+double module(t_complex c);
+double map(double unscaled_num, double new_min, double new_max, double old_max);
+int isMandelbrot(t_complex n);
+t_complex calculate_iteration(t_complex t, t_complex n);
 
 #endif

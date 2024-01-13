@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:25:36 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/08 16:06:05 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/13 13:29:00 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void malloc_error(void)
 
 void data_init(t_fractal *fractal)
 {
-	fractal->escape_value = 4.0;
-	fractal->iteration_def = 42;
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;

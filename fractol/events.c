@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:47:34 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/12 17:18:23 by aconti           ###   ########.fr       */
+/*   Updated: 2024/01/13 13:34:32 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,26 @@ int	key_handler(int keysym, t_fractal *fractal)
 {
 	if (keysym == 65307)
 		close_window(fractal);
-	if (keysym == 65361)
+	if (keysym == LEFT)
 		fractal->shift_x -= (0.5 * fractal->zoom);	
-	else if (keysym == 65363)
+	else if (keysym == RIGHT)
 		fractal->shift_x += (0.5 * fractal->zoom);	
-	else if (keysym ==  65362)
+	else if (keysym ==  UP)
 		fractal->shift_y += (0.5 * fractal->zoom);	
-	else if (keysym == 65364)
-		fractal->shift_y -= (0.5 * fractal->zoom);	
+	else if (keysym == DOWN)
+		fractal->shift_y -= (0.5 * fractal->zoom);
+	else if (!ft_strncmp(fractal->name, "julia", 5) && keysym == L)
+		fractal->julia_x -= (0.25 * fractal->zoom);
+	else if (!ft_strncmp(fractal->name, "julia", 5) && keysym == K)
+		fractal->julia_x += (0.25 * fractal->zoom);
+	else if (!ft_strncmp(fractal->name, "julia", 5) && keysym == N)
+		fractal->julia_y -= (0.25 * fractal->zoom);
+	else if (!ft_strncmp(fractal->name, "julia", 5) && keysym == M)
+		fractal->julia_y += (0.25 * fractal->zoom);
+	else if (keysym == J)
+		fractal->name = "julia";
+	else if (keysym == F)
+		fractal->name = "mandelbrot";
 	fractal_render(fractal);
 	return (0);
 }
