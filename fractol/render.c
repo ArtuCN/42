@@ -18,14 +18,14 @@
 void my_pixel_put(int x, int y, t_image *image, int color)
 {
 	int	offset;
-
-	offset = y * image->line_length
-		+ x * (image->bits_per_pixel / 8);
-	image->addr[offset] = color; //blu
-	//image->addr[offset + 1] = color; //verde
-	image->addr[offset + 2] = color; //rosso
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		offset = y * image->line_length + x * (image->bits_per_pixel / 8);
+		image->addr[offset] = color; //blu
+		//image->addr[offset + 1] = color; //verde
+		image->addr[offset + 2] = color; //rosso
+	}
 }
-
 void handle_pix(int x, int y, t_fractal *fractal)
 {
 	t_complex	new;
