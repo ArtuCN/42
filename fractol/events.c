@@ -55,9 +55,25 @@ int	key_handler(int keysym, t_fractal *fractal)
 	else if (!ft_strncmp(fractal->name, "julia", 5) && keysym == M)
 		fractal->julia_y += (0.25 * fractal->zoom);
 	else if (keysym == J)
+	{
 		fractal->name = "julia";
+		fractal->zoom = 0.0;
+		fractal->shift_x = 0.0;
+		fractal->shift_y = 0.0;
+	}
 	else if (keysym == F)
+	{
 		fractal->name = "mandelbrot";
+		fractal->zoom = 0.0;
+		fractal->shift_x = 0.0;
+		fractal->shift_y = 0.0;
+	}
+	else if (keysym == R)
+	{
+		fractal->zoom = 0.0;
+		fractal->shift_x = 0.0;
+		fractal->shift_y = 0.0;
+	}
 	fractal_render(fractal);
 	return (0);
 }
