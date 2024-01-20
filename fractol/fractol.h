@@ -9,8 +9,6 @@
 /*   Updated: 2024/01/13 13:34:10 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -23,6 +21,11 @@
 
 #define WIDTH 1000
 #define HEIGHT 500
+#define pianoX 5
+#define pianox -5
+#define pianoY 2.5
+#define pianoy -2.5
+
 #define MAXITERATION 1000
 #define EXIT_SUCCESS 0
 
@@ -72,6 +75,8 @@
 #define Y 121
 #define Z 122
 
+
+
 #define LEFT 65361
 #define RIGHT 65363
 #define UP 65362
@@ -92,6 +97,9 @@ typedef struct s_image
 	int bits_per_pixel;
 	int line_length;
 	int endian;
+	int green;
+	int blue;
+	int red;
 } t_image;
 
 typedef struct s_fractal
@@ -105,21 +113,29 @@ typedef struct s_fractal
 	double	zoom;
 	double	julia_x;
 	double	julia_y;
+	int mod;
+	double mouse_imag;
+	double mouse_real;
 } t_fractal;
 
-void	fractal_render(t_fractal *fractal);
 
+//init
 void	fractal_init(t_fractal *fractal);
 void data_init(t_fractal *fractal);
-void handle_pix(int x, int y, t_fractal *fractal);
-
 void malloc_error(void);
+
+//render
+void	fractal_render(t_fractal *fractal);
+void handle_pix(int x, int y, t_fractal *fractal);
+void	reset_image(t_fractal *fractal);
+
 
 //events
 int key_handler(int keysym, t_fractal *fractal);
 int close_window(t_fractal *fractal);
 void    events(t_fractal *fractal);
-int	mouse_handler(int button, int x, int y, t_fractal *fractal);
+int mouse_track(int x, int y, t_fractal *fractal);
+int mouse_handler(int button, int x, int y, t_fractal *fractal);
 
 //str
 double atod(char *str);
@@ -130,7 +146,10 @@ void	ft_putstr(char *s);
 int isJulia(t_complex n, t_fractal *fractal);
 double module(t_complex c);
 double map(double unscaled_num, double new_min, double new_max, double old_max);
-int isMandelbrot(t_complex n);
+int isMandelbrot(t_complex n, t_fractal *fractal);
 t_complex calculate_iteration(t_complex t, t_complex n);
+
+//othwe utils
+void my_color_change(int keysym, t_fractal *fractal);
 
 #endif
