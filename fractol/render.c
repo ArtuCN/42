@@ -18,36 +18,48 @@
 void my_pixel_put(int x, int y, t_image *image, int color)
 {
 	int	offset;
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) 
 	{
-		offset = y * image->line_length + x * (image->bits_per_pixel / 8);
-		image->addr[offset] = color; //blu
-		//image->addr[offset + 1] = color; //verde
-		image->addr[offset + 2] = color; //rosso
+		offset = (y * image->line_length	+ x * (image->bits_per_pixel / 8));
+		if (image->green)
+			image->addr[offset + 1] = color;
+		if (image->blue)
+			image->addr[offset] = color;
+		if (image->red)
+			image->addr[offset + 2] = color;
 	}
 }
+
 void handle_pix(int x, int y, t_fractal *fractal)
 {
 	t_complex	new;
 	int iteration;
 	int color;
 	int pixel_position;
-	
-	new.real = (map(x, -3, +3, WIDTH) * fractal->zoom + fractal->shift_x);
-	new.immaginary = (map(y, 1.5, -1.5, HEIGHT) * fractal->zoom + fractal->shift_y);
+	double smooth;
+
+	new.real = (map(x, pianox, pianoX, WIDTH) * fractal->zoom + fractal->shift_x);
+	new.immaginary = (map(y, pianoY, pianoy, HEIGHT) * fractal->zoom + fractal->shift_y);
 	if (!ft_strncmp(fractal->name, "julia", 5))
 		iteration = isJulia(new, fractal);
-	else
-		iteration = isMandelbrot(new);
+	else if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+		iteration = isMandelbrot(new, fractal);
+	//else
+	//{
+		//iteration = spiral_iteration(new);
+		//handle_bonus(x, y, fractal, iteration);
+		//return ;
+	//}
+	smooth = (double)iteration / (MAXITERATION + fractal->mod);
 	pixel_position = (y * fractal->image.line_length) + (x * (fractal->image.bits_per_pixel / 8));
-	if (iteration != MAXITERATION)
-		{
-			color = (iteration * 10000) / MAXITERATION;
-			my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, color);
-		}
+	if (iteration != MAXITERATION + fractal->mod)
+	{
+		color = (smooth * 10000);
+		my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, color);
+	}
 	else
-		my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, 0x000000);
-
+		my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, WHITE);
 }
 
 void	fractal_render(t_fractal *fractal)
@@ -63,4 +75,18 @@ void	fractal_render(t_fractal *fractal)
 			handle_pix (x, y, fractal);
 	}
 	mlx_put_image_to_window(fractal->mlx_connection, fractal->mlx_window, fractal->image.img_ptr, 0, 0);
+}
+
+void	reset_image(t_fractal *fractal)
+{
+	int y;
+	int x;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			my_pixel_put(x + fractal->shift_x, y + fractal->shift_y, &fractal->image, BLACK);
+	}
 }
