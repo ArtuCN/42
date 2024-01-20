@@ -15,7 +15,7 @@ CC = gcc
 #CFLAGS = -Wall -Wextra -Werror
 LIBS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
-SRC = main.c events.c math_utils.c render.c string_utils.c init.c
+SRC = fractol.h main.c events.c math_utils.c render.c string_utils.c init.c bonus.c other_utils.c
 OBJ = $(SRC:.c=.o)
 
 NAME = fractal
@@ -37,3 +37,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
