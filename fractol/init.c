@@ -36,6 +36,10 @@ void data_init(t_fractal *fractal)
 	fractal->shift_x = 0.0;
 	fractal->shift_y = 0.0;
 	fractal->zoom = 1.0;
+	fractal->mod = 1;
+	fractal->image.green = 1;
+	fractal->image.blue = 1;
+	fractal->image.red = 0;
 }
 
 void fractal_init(t_fractal *fractal)
@@ -52,11 +56,12 @@ void fractal_init(t_fractal *fractal)
 		malloc_error();
 	}
 	fractal->image.img_ptr = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
-	if (NULL == fractal->image.addr)
+	if (NULL == fractal->image.img_ptr)
 	{
 		mlx_destroy_window (fractal->mlx_connection, fractal->mlx_window);
 		mlx_destroy_display (fractal->mlx_connection);
 		free (fractal->mlx_connection);
+		malloc_error();
 	}
 	fractal->image.addr = mlx_get_data_addr(fractal->image.img_ptr,
                                         &fractal->image.bits_per_pixel,
