@@ -9,7 +9,6 @@
 /*   Updated: 2024/01/29 18:02:04 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "push_swap.h"
 
 int	max(t_stack *a)
@@ -79,6 +78,21 @@ void	little_order(t_stack **a, int i)
 	}
 }
 
+int	counter(t_stack *a)
+{
+	int n;
+	t_stack *temp;
+
+	n = 0;
+	temp = a;
+	while (temp != NULL)
+	{
+		temp = temp->next;
+		n++;
+	}
+	return (n);
+}
+
 void	sort(t_stack **a, t_stack **b, int n)
 {
 	int	t;
@@ -90,7 +104,7 @@ void	sort(t_stack **a, t_stack **b, int n)
 	j = 0;
 	printf("media :%d  n elementi:%d\n", t, n);
 	int i = 0;
-	while (i < n)
+	while (counter(*a) >= 3)
 	{
 		if (temp->val < t)
 		{
@@ -109,34 +123,17 @@ void	sort(t_stack **a, t_stack **b, int n)
 		}
 		temp = *a;
 		printf ("\n counter :%d\n", i++);
+		if (i >= n)
+		{
+			printf("ricalcolo");
+			t = media(*a);
+			i = 0;				
+		}
 	}
 	temp = *a;
-	t = media(*a);
-	i = 0;
-	int x;
-	while (i < j)
-	{
-		if (temp->val < t)
-		{
-			pb(b, a);
-			printf("\n\n");
-			print_stack(*a);
-			printf("b: \n");
-			print_stack(*b);
-		}
-		else
-		{
-			do_rotate(a, b, 1);
-			printf("\n\n");
-			print_stack(*a);
-			x++;
-		}
-		temp = *a;
-		printf ("\n counter :%d\n", i++);
-	}	
+	little_order(*a, i);
 	printf("\na \n");
 	print_stack(*a);
 	printf("b\n");
 	print_stack(*b);
-
 }
