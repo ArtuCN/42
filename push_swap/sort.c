@@ -59,23 +59,23 @@ void	little_order_min(t_stack **a)
 	}
 }
 
-void	little_order(t_stack **a, int i)
+void	little_order(t_stack **a, t_stack **b, int i)
 {
 	t_stack *temp;
 	int j;
 
 	j = 0;
 	temp = *a;
-	printf("little_order");
 	while (j < i)
 	{
-		if ((*a)->val < (*a)->next->val)
-		{
-			temp = (*a)->next;
+		if (temp->val < temp->next->val)
 			sa(a);
-		}
+		else
+			do_rotate(a, b, 1);
+		temp = (*a)->next;
 		j++;
 	}
+	
 }
 
 int	counter(t_stack *a)
@@ -98,42 +98,26 @@ void	sort(t_stack **a, t_stack **b, int n)
 	int	t;
 	int j;
 	t_stack *temp;
+	int i;
 
 	temp = *a;
-	t = media(*a);
+	t = media(*a) / 2;
 	j = 0;
-	printf("media :%d  n elementi:%d\n", t, n);
-	int i = 0;
-	while (counter(*a) >= 3)
+	i = 0;
+	while (counter(*a) > 3)
 	{
 		if (temp->val < t)
-		{
 			pb(b, a);
-			printf("\n\n");
-			print_stack(*a);
-			printf("b: \n");
-			print_stack(*b);
-		}
 		else
-		{
 			do_rotate(a, b, 1);
-			printf("\n\n");
-			print_stack(*a);
+		if (!(temp->val < t))
 			j++;
-		}
 		temp = *a;
-		printf ("\n counter :%d\n", i++);
 		if (i >= n)
-		{
-			printf("ricalcolo");
 			t = media(*a);
+		if (i++ >= n)
 			i = 0;				
-		}
 	}
 	temp = *a;
-	little_order(*a, i);
-	printf("\na \n");
-	print_stack(*a);
-	printf("b\n");
-	print_stack(*b);
+	little_order(*a, *b, i);
 }
