@@ -6,9 +6,10 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:02:02 by aconti            #+#    #+#             */
-/*   Updated: 2024/01/29 18:02:04 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/01 16:08:19 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	max(t_stack *a)
@@ -39,6 +40,7 @@ double	media(t_stack *a)
 
 	i = 0;
 	temp = a;
+	val = 0;
 	while (temp != NULL)
 	{
 		i++;
@@ -61,21 +63,28 @@ void	little_order_min(t_stack **a)
 
 void	little_order(t_stack **a, t_stack **b, int i)
 {
-	t_stack *temp;
-	int j;
-
-	j = 0;
-	temp = *a;
-	while (j < i)
+	if ((*a)->val > (*a)->next->val)
 	{
-		if (temp->val < temp->next->val)
-			sa(a);
+		if ((*a)->val > (*a)->next->next->val)
+			check_ss(a, b);
 		else
-			do_rotate(a, b, 1);
-		temp = (*a)->next;
-		j++;
+		{
+			do_rotate (a, b, 1);
+		}
+		if ((*a)->val > (*a)->next->val)
+			check_ss(a, b);
 	}
-	
+	else
+	{
+		if ((*a)->val > (*a)->next->next->val)
+			do_rotate(a, b, 4);
+		else if ((*a)->next->val > (*a)->next->next->val)
+		{
+			check_ss(a, b);
+			do_rotate(a, b, 1);
+		}
+	}
+	cont(a, b);
 }
 
 int	counter(t_stack *a)
@@ -95,29 +104,29 @@ int	counter(t_stack *a)
 
 void	sort(t_stack **a, t_stack **b, int n)
 {
-	int	t;
+	int	mediat;
 	int j;
 	t_stack *temp;
 	int i;
 
 	temp = *a;
-	t = media(*a) / 2;
-	j = 0;
+	mediat = media(*a);
 	i = 0;
-	while (counter(*a) > 3)
+	while (counter(temp) > 3)
 	{
-		if (temp->val < t)
+		check_ss(a, b);
+		if (temp->val < mediat)
 			pb(b, a);
 		else
 			do_rotate(a, b, 1);
-		if (!(temp->val < t))
-			j++;
 		temp = *a;
-		if (i >= n)
-			t = media(*a);
+		n = counter(*a);
 		if (i++ >= n)
-			i = 0;				
+		{
+			mediat = media(*a);
+			i = 0;		
+		}
 	}
 	temp = *a;
-	little_order(*a, *b, i);
+	little_order(a, b, i);
 }
