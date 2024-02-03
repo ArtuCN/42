@@ -61,30 +61,26 @@ void	little_order_min(t_stack **a)
 	}
 }
 
-void	little_order(t_stack **a, t_stack **b, int i)
+void little_order(t_stack **a, t_stack **b)
 {
-	if ((*a)->val > (*a)->next->val)
-	{
-		if ((*a)->val > (*a)->next->next->val)
-			check_ss(a, b);
-		else
-		{
-			do_rotate (a, b, 1);
-		}
-		if ((*a)->val > (*a)->next->val)
-			check_ss(a, b);
+    if (*a && (*a)->next && (*a)->next->next && (*a)->val > (*a)->next->val && (*a)->next->val > (*a)->next->next->val)
+    {
+	    sa(a);
+		write (1, "sa\n", 3);
+		do_rotate(a, b, 4);
+    }
+    else if ((*a)->next->val > (*a)->val && (*a)->next->val > (*a)->next->next->val)
+    {
+        do_rotate(a, b, 1);
+        sa(a);
+		write (1, "sa\n", 3);
+    }
+    else
+    {
+		sa(a);
+		write (1, "sa\n", 3);
 	}
-	else
-	{
-		if ((*a)->val > (*a)->next->next->val)
-			do_rotate(a, b, 4);
-		else if ((*a)->next->val > (*a)->next->next->val)
-		{
-			check_ss(a, b);
-			do_rotate(a, b, 1);
-		}
-	}
-	cont(a, b);
+    cont(a, b);
 }
 
 int	counter(t_stack *a)
@@ -128,5 +124,5 @@ void	sort(t_stack **a, t_stack **b, int n)
 		}
 	}
 	temp = *a;
-	little_order(a, b, i);
+	little_order(a, b);
 }
