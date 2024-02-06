@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 int	max(t_stack *a)
 {
 	int	max;
@@ -61,28 +60,6 @@ void	little_order_min(t_stack **a)
 	}
 }
 
-void little_order(t_stack **a, t_stack **b)
-{
-    if (*a && (*a)->next && (*a)->next->next && (*a)->val > (*a)->next->val && (*a)->next->val > (*a)->next->next->val)
-    {
-	    sa(a);
-		write (1, "sa\n", 3);
-		do_rotate(a, b, 4);
-    }
-    else if ((*a)->next->val > (*a)->val && (*a)->next->val > (*a)->next->next->val)
-    {
-        do_rotate(a, b, 1);
-        sa(a);
-		write (1, "sa\n", 3);
-    }
-    else
-    {
-		sa(a);
-		write (1, "sa\n", 3);
-	}
-    cont(a, b);
-}
-
 int	counter(t_stack *a)
 {
 	int n;
@@ -106,23 +83,20 @@ void	sort(t_stack **a, t_stack **b, int n)
 	int i;
 
 	temp = *a;
-	mediat = media(*a);
+	mediat = mid_media(*a);
 	i = 0;
-	while (counter(temp) > 3)
+	while (counter(temp) > 2)
 	{
-		check_ss(a, b);
 		if (temp->val < mediat)
 			pb(b, a);
 		else
 			do_rotate(a, b, 1);
 		temp = *a;
 		n = counter(*a);
+		mediat = media(*a);
 		if (i++ >= n)
-		{
-			mediat = media(*a);
 			i = 0;		
-		}
 	}
 	temp = *a;
-	little_order(a, b);
+	cont(a, b);
 }
