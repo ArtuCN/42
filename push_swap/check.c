@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:13:57 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/13 20:21:05 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:08:59 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ float media_array(long array[], int lunghezza)
     int i;
 	int somma;
 
+    i = 0;
     if (lunghezza == 0)
         return 0;
     somma = 0;
@@ -155,7 +156,9 @@ void array_to_stack(long int *arr, int size, t_stack **stack)
 	int i = size - 1;
 	while (i >= 0)
 	{
-		new_node = malloc(sizeof(t_stack));
+        new_node = malloc(sizeof(t_stack));
+        if (!new_node)
+            return ;
 		new_node->val = arr[i];
 		if (size > 50)
 			add_push(new_node, size, arr);

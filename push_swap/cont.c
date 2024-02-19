@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 11:59:14 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/19 16:54:31 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:11:57 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void cont(t_stack **a, t_stack **b)
 	check_ss(a, b);
 	little_check(a, b);
 	pa(a, b);
+	free_stack(*b);
 }
 

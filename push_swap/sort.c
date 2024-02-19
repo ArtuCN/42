@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:02:02 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/19 16:57:26 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 17:25:20 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,16 @@ int check_push(t_stack **a, int i)
 void pre_order(t_stack **a, t_stack **b)
 {
     int i;
-    t_stack *temp;
-    temp = (t_stack *)malloc(sizeof(t_stack));
-    if (!temp)
-        return ;
-    temp = *a;
+
     i = 1;
     while (i < 6)
     {
-        if (temp->push == i)
+        if ((*a)->push == i)
             pb(b, a);
         else if(*b && (*b)->next && (*b)->val < (*b)->next->val )
             do_rotate(a, b, 3);
         else
             do_rotate(a, b, 1);
-        temp = *a;
         if (!check_push(a, i))
             i++;
     }

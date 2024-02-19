@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:18:57 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/13 22:37:28 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 17:51:46 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void pa(t_stack **add, t_stack **take)
 	g = malloc(sizeof(t_stack));
 	if (!g)
 	{
-		free_stack(g);
 		return ;
 	}
 	g->val = (*take)->val;
 	g->next = *add;
 	*add = g;
-	*take = (*take)->next;
+	t_stack *temp = *take;
+	(*take) = (*take)->next;
+	free(temp);
 	write(1, "pa\n", 3);
 }
 
@@ -40,13 +41,14 @@ void pb(t_stack **add, t_stack **take)
 	g = malloc(sizeof(t_stack));
 	if (!g)
 	{
-		free_stack(g);
 		return ;
 	}
 	g->val = (*take)->val;
 	g->next = *add;
 	*add = g;
-	*take = (*take)->next;
+	t_stack *temp = *take;
+	(*take) = (*take)->next;
+	free(temp);
 	write(1, "pb\n", 3);
 }
 
