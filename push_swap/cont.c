@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 11:59:14 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/13 16:03:12 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 16:54:31 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,13 @@ void little_check(t_stack **a, t_stack **b)
 		if (rot_b <= 0)
 		{
 			while ((*b)->val != max(b))
-			{
-				reverse_rotate(b);
-				write(1, "rrb\n", 4);
-			}
+				do_rotate(a, b, 5);
 			pa(a, b);
 		}
-		else if (rot_b > 0)
+		else
 		{
 			while ((*b)->val != max(b))
-			{
-				rotate(b);
-				write(1, "rb\n", 3);
-			}
+				do_rotate(a, b, 2);
 			pa(a, b);
 		}
 	}
@@ -84,13 +78,8 @@ void little_check(t_stack **a, t_stack **b)
 
 void cont(t_stack **a, t_stack **b)
 {
-	int i = counter(*b);
-	t_stack *temp;
-	int mediat;
-	
-	little_check(a, b);
 	check_ss(a, b);
-	pa(a, b);
+	little_check(a, b);
 	pa(a, b);
 }
 

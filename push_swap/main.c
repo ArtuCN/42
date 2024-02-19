@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:11:23 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/13 22:36:20 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/19 16:48:20 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int is_sorted(long int *arr, int n)
 int main(int argc, char **argv)
 {
 	t_stack *stack = NULL;
-	t_stack *b;
+	t_stack *b = NULL;
 
-	b = malloc(sizeof(t_stack));
-	if (!b)
-		return (0);	
+	// b = malloc(sizeof(t_stack));
+	// if (!b)
+	// 	return (0);	
 	int n = count_num(argv);
 	long int nums[n];
 	ft_atoi(argv, nums);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 		return (0);
 	array_to_stack(nums, n, &stack);
 	sort(&stack, &b, n);
-	free_stack(b);
-	free_stack(stack);
+	//free_stack(b);
+	//free_stack(stack);
 	return (0);
 }
