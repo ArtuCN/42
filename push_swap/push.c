@@ -6,49 +6,70 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 18:18:57 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/19 17:51:46 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/20 13:53:41 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void remove_first(t_stack **stack)
+{
+	t_stack *temp;
+	
+	temp = (*stack)->next;
+	free(*stack);
+	(*stack) = temp;
+}
+
 void pa(t_stack **add, t_stack **take)
 {
 	t_stack *g;
+    t_stack *temp;
 
-	if (!*take || !take)
+	if (!add || !take)
 		return ;
 	g = malloc(sizeof(t_stack));
 	if (!g)
 	{
+		while (*add != NULL)
+        {
+			temp = *add;
+            *add = (*add)->next;
+            free(temp);
+        }
 		return ;
 	}
 	g->val = (*take)->val;
 	g->next = *add;
 	*add = g;
-	t_stack *temp = *take;
-	(*take) = (*take)->next;
-	free(temp);
+	remove_first(take);
+	free(g);
 	write(1, "pa\n", 3);
 }
+
 
 void pb(t_stack **add, t_stack **take)
 {
 	t_stack *g;
+    t_stack *temp;
 
-	if (!*take || !take)
+	if (!add || !take)
 		return ;
 	g = malloc(sizeof(t_stack));
 	if (!g)
 	{
+		while (*add != NULL)
+        {
+			temp = *add;
+            *add = (*add)->next;
+            free(temp);
+        }
 		return ;
 	}
 	g->val = (*take)->val;
 	g->next = *add;
 	*add = g;
-	t_stack *temp = *take;
-	(*take) = (*take)->next;
-	free(temp);
+	remove_first(take);
 	write(1, "pb\n", 3);
 }
 

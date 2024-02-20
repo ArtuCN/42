@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:13:57 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/19 18:08:59 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:30:35 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,15 @@ void array_to_stack(long int *arr, int size, t_stack **stack)
 	{
         new_node = malloc(sizeof(t_stack));
         if (!new_node)
-            return ;
+        {
+            while (*stack != NULL)
+            {
+                t_stack *temp = *stack;
+                *stack = (*stack)->next;
+                free(temp);
+            }
+            return;
+        }
 		new_node->val = arr[i];
 		if (size > 50)
 			add_push(new_node, size, arr);

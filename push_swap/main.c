@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:11:23 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/19 16:48:20 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/20 14:32:46 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,5 @@ int main(int argc, char **argv)
 		return (0);
 	array_to_stack(nums, n, &stack);
 	sort(&stack, &b, n);
-	//free_stack(b);
-	//free_stack(stack);
 	return (0);
 }
