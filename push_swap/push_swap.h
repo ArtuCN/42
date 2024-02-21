@@ -6,7 +6,7 @@
 /*   By: aconti <aconti@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:28:23 by aconti            #+#    #+#             */
-/*   Updated: 2024/02/13 22:36:06 by aconti           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:52:31 by aconti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ float	media_array(long array[], int lunghezza);
 //push
 void	pa(t_stack **add, t_stack **take);
 void	pb(t_stack **add, t_stack **take);
+void	remove_first(t_stack **stack);
 //rotate
 t_stack	*ft_lstlast(t_stack *lst);
 void    ft_lstadd_back(t_stack **lst, t_stack *new);
